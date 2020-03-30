@@ -4,7 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.security.KeyStore;
 
-import cn.liuweihua.app.https2way_test.MainActivity;
+import cn.liuweihua.app.https2way_demo.MainActivity;
 
 public class SSLStore {
 

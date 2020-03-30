@@ -1,7 +1,5 @@
 package com.rytong.net;
 
-import android.app.Activity;
-
 
 import org.apache.http.conn.ssl.SSLSocketFactory;
 
@@ -26,7 +24,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import cn.liuweihua.app.https2way_test.MainActivity;
+import cn.liuweihua.app.https2way_demo.MainActivity;
 
 /**
  * 证书绑定使用的SSLSocketFactory

@@ -1,4 +1,4 @@
-package cn.liuweihua.app.https2way_test;
+package cn.liuweihua.app.https2way_demo;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,13 +18,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 
 import java.net.URI;
-import java.util.Arrays;
+import java.util.Collections;
 
 import okhttp3.Call;
+import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.TlsVersion;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -94,7 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void run() {
                 try {
                     OkHttpClient client = new OkHttpClient.Builder()
-                            .connectionSpecs(Arrays.asList(ConnectionSpec.COMPATIBLE_TLS))
+                            .connectionSpecs(Collections.singletonList(getConnectionSpec()))
                             .sslSocketFactory(TrustAllCerts.createSSLSocketFactory(), new TrustAllCerts())
                             .hostnameVerifier(new TrustAllCerts.TrustAllHostnameVerifier())
                             .build();
@@ -130,5 +132,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private static ConnectionSpec getConnectionSpec() {
+        ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.COMPATIBLE_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2)
+                .cipherSuites(CipherSuite.TLS_RSA_WITH_AES_128_CBC_SHA256,
+                        CipherSuite.TLS_RSA_WITH_AES_128_CBC_SHA,
+                        CipherSuite.TLS_RSA_WITH_AES_256_CBC_SHA256,
+                        CipherSuite.TLS_RSA_WITH_AES_256_CBC_SHA,
+                        CipherSuite.TLS_RSA_WITH_3DES_EDE_CBC_SHA).build();
+        return spec;
     }
 }
